@@ -9,7 +9,7 @@ class MemoryContainer {
     }
 
     getById(id) {
-        const content = await this.getAll()
+        const content = this.getAll()
         const index = content.findIndex(register => register.id === id);
         if (index === -1) {
             return (`No se ha encontrado el registro con id ${id}`)
