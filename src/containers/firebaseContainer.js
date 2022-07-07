@@ -1,5 +1,6 @@
 import admin from "firebase-admin";
 import config from "../config.js";
+import { errorLogger } from "../../controllers/loggers.js";
 
 admin.initializeApp({
   credential: admin.credential.cert(config.firebase),
@@ -19,7 +20,7 @@ class FirebaseContainer {
       docs.map((doc) => response.push(doc.data()));
       return response;
     } catch (error) {
-      console.log(error);
+      errorLogger.error(error)
     }
   }
 
@@ -32,7 +33,7 @@ class FirebaseContainer {
       }
       return content[index];
     } catch (error) {
-      console.log(error);
+      errorLogger.error(error)
     }
   }
 
@@ -45,7 +46,7 @@ class FirebaseContainer {
         JSON.stringify(data)
       );
     } catch (error) {
-      console.log(error);
+      errorLogger.error(error)
     }
   }
 
@@ -64,7 +65,7 @@ class FirebaseContainer {
         JSON.stringify(newData)
       );
     } catch (error) {
-      console.log(error);
+      errorLogger.error(error)
     }
   }
 
@@ -78,7 +79,7 @@ class FirebaseContainer {
       await this.collection.doc(`${id}`).delete();
       return `El registro con id ${id} ha sido eliminado correctamente`;
     } catch (error) {
-      console.log(error);
+      errorLogger.error(error)
     }
   }
 }

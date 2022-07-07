@@ -1,9 +1,11 @@
 import "dotenv/config";
 
+import { requestLogger } from "../../controllers/loggers.js";
+
 let productsDao;
 let cartsDao;
-
-console.log("db seleccionada:", process.env.PERSISTENCE);
+let usersDao;
+requestLogger.info(`db seleccionada: ${process.env.PERSISTENCE}`);
 
 switch (process.env.PERSISTENCE) {
   case "json":
@@ -11,8 +13,10 @@ switch (process.env.PERSISTENCE) {
       "./products/filesProductsDao.js"
     );
     const { default: FilesCartsDao } = await import("./carts/filesCartsDao.js");
+    const { default: FilesUsersDao } = await import("./users/filesUsersDao.js");
     productsDao = new FilesProductsDao();
     cartsDao = new FilesCartsDao();
+    usersDao = new FilesUsersDao();
     break;
 
   case "mongo":
@@ -20,8 +24,10 @@ switch (process.env.PERSISTENCE) {
       "./products/mongoProductsDao.js"
     );
     const { default: MongoCartsDao } = await import("./carts/mongoCartsDao.js");
+    const { default: MongoUsersDao } = await import("./users/mongoUsersDao.js");
     productsDao = new MongoProductsDao();
     cartsDao = new MongoCartsDao();
+    usersDao = new MongoUsersDao();
     break;
 
   case "firebase":
@@ -31,8 +37,12 @@ switch (process.env.PERSISTENCE) {
     const { default: FirebaseCartsDao } = await import(
       "./carts/firebaseCartsDao.js"
     );
+    const { default: FirebaseUsersDao } = await import(
+      "./users/firebaseUsersDao.js"
+    );
     productsDao = new FirebaseProductsDao();
     cartsDao = new FirebaseCartsDao();
+    usersDao = new FirebaseUsersDao();
     break;
 
   default:
@@ -42,9 +52,13 @@ switch (process.env.PERSISTENCE) {
     const { default: MemoryCartsDao } = await import(
       "./carts/memoryCartsDao.js"
     );
+    const { default: MemoryUsersDao } = await import(
+      "./users/memoryUsersDao.js"
+    );
     productsDao = new MemoryProductsDao();
     cartsDao = new MemoryCartsDao();
+    usersDao = new MemoryUsersDao();
     break;
 }
 
-export { productsDao, cartsDao };
+export { productsDao, cartsDao, usersDao };

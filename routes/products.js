@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { isAuth } from "../middleware/auth.js";
 import { login } from "../middleware/login.js";
 import { productsDao as products } from "../src/daos/index.js";
 import uniqid from "uniqid";
@@ -7,21 +8,21 @@ const routerProducts = Router();
 
 // RUTAS PÚBLICAS
 
-routerProducts.get("/:id?", async (req, res) => {
+routerProducts.get("/:id?", isAuth, async (req, res) => {
   if (req.params.id) {
     let id = req.params.id;
     let data = await products.getById(id);
-    res.send(data);
+    res.render("details", {data})
   } else {
     let data = await products.getAll();
-    res.send(data);
+    res.render("products", {data, user: req.user})
   }
 });
 
 // RUTAS PRIVADAS
 
 routerProducts.post("/", login, async (req, res) => {
-  let timestamp = new Date(Date.now()).toLocaleString();
+  let timestamp = new Date().valueOf();
   let id = uniqid();
   let newProduct = { ...req.body, id, timestamp };
   let data = await products.add(newProduct);

@@ -1,0 +1,21 @@
+<div>
+    <h3>Mi carrito</h3>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Imagen</th>
+          </tr>
+        </thead>
+        <tbody id="products">
+          {{#each data.products}}
+            <tr>
+              <td class='align-middle'>{{this.title}}</td>
+              <td class='align-middle'>${{this.price}}</td>
+              <td class='align-middle'><img src="{{this.thumbnail}}" width="60" alt="" /></td>
+            </tr>
+          {{/each}}
+        </tbody>
+    </table>
+</div>

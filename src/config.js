@@ -1,7 +1,9 @@
+import "dotenv/config";
+
 export default {
   mongodb: {
     connectionString:
-      "mongodb+srv://cesar:364788mg@cluster0.zbava.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+      "mongodb+srv://cesar:364788mg@cluster0.zbava.mongodb.net/ecommerce?retryWrites=true&w=majority",
   },
   firebase: {
     type: "service_account",
@@ -18,4 +20,6 @@ export default {
     client_x509_cert_url:
       "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-1nguz%40ecommerce-e1ce7.iam.gserviceaccount.com",
   },
+  PORT: process.env.PORT || 8080,
+  MODE: process.env.MODE || 'fork'
 };

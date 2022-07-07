@@ -1,0 +1,11 @@
+<div>
+    <h3>Mi cuenta</h3>
+    <a href="/users/logout">Desloguear</a>
+    <h2>{{user.username}}</h2>
+    <img src="/uploads/{{user.photo}}" alt="" class="profile-picture">
+    <p><strong>Email: </strong>{{user.id}}</p>
+    <p><strong>Dirección: </strong>{{user.direction}}</p>
+    <p><strong>Edad: </strong>{{user.age}}</p>
+    <p><strong>Teléfono: </strong>{{user.phone}}</p>
+    <strong><a href="/carts/{{user.cart}}">Carrito</a></strong>
+</div>
