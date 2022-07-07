@@ -10,9 +10,9 @@ class FilesContainer {
   async write(data) {
     try {
       await fs.promises.writeFile(this.filename, data);
-      requestLogger.info("Escrito correctamente")
+      requestLogger.info("Escrito correctamente");
     } catch (error) {
-      errorLogger.error(error)
+      errorLogger.error(error);
     }
   }
 
@@ -20,7 +20,7 @@ class FilesContainer {
     try {
       return JSON.parse(await fs.promises.readFile(this.filename, "utf-8"));
     } catch (error) {
-      errorLogger.error(error)
+      errorLogger.error(error);
     }
   }
 
@@ -33,7 +33,7 @@ class FilesContainer {
       }
       return register[index];
     } catch (error) {
-      errorLogger.error(error)
+      errorLogger.error(error);
     }
   }
 
@@ -47,7 +47,7 @@ class FilesContainer {
         JSON.stringify(data)
       );
     } catch (error) {
-      errorLogger.error(error)
+      errorLogger.error(error);
     }
   }
 
@@ -67,7 +67,7 @@ class FilesContainer {
         JSON.stringify(newData)
       );
     } catch (error) {
-      errorLogger.error(error)
+      errorLogger.error(error);
     }
   }
 
@@ -82,7 +82,7 @@ class FilesContainer {
       await this.write(JSON.stringify(content));
       return `El registro con id ${id} ha sido eliminado correctamente`;
     } catch (error) {
-      errorLogger.error(error)
+      errorLogger.error(error);
     }
   }
 }

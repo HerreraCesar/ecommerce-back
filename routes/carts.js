@@ -1,26 +1,28 @@
-import { cartsDao as carts, productsDao as products } from "../src/daos/index.js";
+import {
+  cartsDao as carts,
+  productsDao as products,
+} from "../src/daos/index.js";
 
 import { Router } from "express";
 import { requestLogger } from "../controllers/loggers.js";
-import uniqid from "uniqid";
 
 const routerCarts = Router();
 
 // RUTAS PÚBLICAS
 
 routerCarts.get("/:id", async (req, res) => {
-  requestLogger.info(`ruta ${req.url} metodo ${req.method} autorizada`)
+  requestLogger.info(`ruta ${req.url} metodo ${req.method} autorizada`);
   let cartId = req.params.id;
   let data = await carts.getById(cartId);
-  res.render('cart', {data})
+  res.render("cart", { data });
 });
 
 routerCarts.post("/:id/:product", async (req, res) => {
-  requestLogger.info(`ruta ${req.url} metodo ${req.method} autorizada`)
+  requestLogger.info(`ruta ${req.url} metodo ${req.method} autorizada`);
   let cartId = req.params.id;
   let productId = req.params.product;
   let cartContent = await carts.getById(cartId);
-  let newProduct = await products.getById(productId)
+  let newProduct = await products.getById(productId);
   let cartProducts = cartContent.products;
   const index = cartProducts.findIndex(
     (registry) => registry.id === newProduct.id
@@ -31,7 +33,7 @@ routerCarts.post("/:id/:product", async (req, res) => {
   } else {
     cartProducts.push(newProduct);
     let data = await carts.updateById(cartId, { products: cartProducts });
-    res.redirect(`/carts/${cartId}`)
+    res.redirect(`/carts/${cartId}`);
   }
 });
 

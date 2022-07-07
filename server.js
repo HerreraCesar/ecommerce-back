@@ -2,9 +2,9 @@ import { Strategy as LocalStrategy } from "passport-local";
 import MongoStore from "connect-mongo";
 import bcrypt from "bcrypt";
 import { cartsDao as carts } from "./src/daos/index.js";
-import cluster from 'node:cluster';
+import cluster from "node:cluster";
 import config from "./src/config.js";
-import { cpus } from 'node:os';
+import { cpus } from "node:os";
 import { createTransport } from "nodemailer";
 import { engine } from "express-handlebars";
 import { errors } from "./controllers/errors.js";
@@ -14,12 +14,13 @@ import passport from "passport";
 import path from "path";
 import { requestLogger } from "./controllers/loggers.js";
 import routerCarts from "./routes/carts.js";
+import routerOrders from "./routes/orders.js";
 import routerProducts from "./routes/products.js";
 import routerUsers from "./routes/users.js";
 import session from "express-session";
 import twilio from "twilio";
-import uniqid from 'uniqid'
-import {usersDao as users} from './src/daos/index.js'
+import uniqid from "uniqid";
+import { usersDao as users } from "./src/daos/index.js";
 
 // ------------- INICIALIZANDO APP ------------- //
 const app = express();
@@ -44,21 +45,19 @@ app.use(
 );
 
 // ------------- NODEMAILER ------------- //
-const EMAIL = 'iluminacion.stail@gmail.com'
-
-const transporter = createTransport({
-  service: 'gmail',
+export const transporter = createTransport({
+  service: "gmail",
   port: 587,
   auth: {
-    user: EMAIL,
-    pass: 'wldokbvttmhtsibw'
-  }
-})
+    user: config.EMAIL,
+    pass: config.EMAIL_PASSWORD,
+  },
+});
 
 // ------------- TWILIO ------------- //
-const accountSid = 'AC9e731e2c59545dd8a2588be775a28f05'; 
-const authToken = '43694a95a08065c32cb7a96dd0d48d35'; 
-const client = new twilio(accountSid, authToken);
+const accountSid = config.TWILIO_ACCOUNT_SID;
+const authToken = config.TWILIO_AUTH_TOKEN;
+export const client = new twilio(accountSid, authToken);
 
 // ------------- PASSPORT ------------- //
 app.use(passport.initialize());
@@ -108,20 +107,20 @@ passport.use(
         phone: req.body.phone,
         photo: req.file.filename,
         timestamp: time,
-        cart: uniqid()
+        cart: uniqid(),
       };
       const newCart = {
         timestamp: new Date().valueOf(),
         id: newUser.cart,
-        products: []
-      }
-      await carts.add(newCart)
+        products: [],
+      };
+      await carts.add(newCart);
       await users.add(newUser);
 
       const mailOptions = {
-        from: 'Servidor Node.js',
-        to: 'herrera.cesar.arg@gmail.com',
-        subject: 'Nuevo registro en Mi tienda',
+        from: "Servidor Node.js",
+        to: "herrera.cesar.arg@gmail.com",
+        subject: "Nuevo registro en Mi tienda",
         html: `
           <h2>Se registró un nuevo usuario con los siguientes datos:</h2>
           <p><strong>Nombre: </strong>${username}</p>
@@ -131,24 +130,26 @@ passport.use(
           <p><strong>Teléfono: </strong>${req.body.phone}</p>
           <p><strong>Id carrito: </strong>${newUser.cart}</p>
           <p><strong>Timestamp: </strong>${newUser.timestamp}</p>
-        `
-      }
-      
+        `,
+      };
+
       try {
-        const info = await transporter.sendMail(mailOptions)
-        requestLogger.info(info)
+        const info = await transporter.sendMail(mailOptions);
+        requestLogger.info(info);
       } catch (error) {
-        errorLogger.error(error)
+        errorLogger.error(error);
       }
 
-      await client.messages 
-      .create({ 
-         body: 'Se ha registrado un nuevo usuario', 
-         from: 'whatsapp:+14155238886',       
-         to: 'whatsapp:+543469695548'
-       }) 
-      .then(message => requestLogger.info(message.sid)) 
-      .done();
+      try {
+        const message = await client.messages.create({
+          body: "Se ha registrado un nuevo usuario",
+          from: "+19854017204",
+          to: "+543469695548",
+        });
+        requestLogger.info(message);
+      } catch (error) {
+        errorLogger.error(error);
+      }
 
       return done(null, newUser);
     }
@@ -173,15 +174,16 @@ app.use(express.static(__dirname + "/public"));
 
 // ------------- RUTAS ------------- //
 app.get("/", (req, res) => {
-  res.render('home')
-})
+  res.render("home");
+});
 app.use("/products", routerProducts);
 app.use("/carts", routerCarts);
 app.use("/users", routerUsers);
+app.use("/orders", routerOrders);
 app.use("*", errors);
 
 // ------------- INICIALIZANDO SERVIDOR ------------- //
-if (config.MODE === 'cluster') {
+if (config.MODE === "cluster") {
   const numCPUs = cpus().length;
 
   if (cluster.isPrimary) {
@@ -191,30 +193,28 @@ if (config.MODE === 'cluster') {
       cluster.fork();
     }
 
-    cluster.on('exit', (worker, code, signal) => {
+    cluster.on("exit", (worker, code, signal) => {
       requestLogger.info(`worker ${worker.process.pid} died`);
     });
-
   } else {
-
     const server = app.listen(config.PORT, () => {
       requestLogger.info(
-        `Servidor escuchando en el puerto ${
-          server.address().port
-        }`
+        `Servidor escuchando en el puerto ${server.address().port}`
       );
     });
-    server.on("error", (error) => errorLogger.error(`Error en el servidor ${error}`));
+    server.on("error", (error) =>
+      errorLogger.error(`Error en el servidor ${error}`)
+    );
 
     requestLogger.info(`Worker ${process.pid} started`);
   }
 } else {
   const server = app.listen(config.PORT, () => {
     requestLogger.info(
-      `Servidor escuchando en el puerto ${
-        server.address().port
-      }`
+      `Servidor escuchando en el puerto ${server.address().port}`
     );
   });
-  server.on("error", (error) => errorLogger.error(`Error en el servidor ${error}`));
+  server.on("error", (error) =>
+    errorLogger.error(`Error en el servidor ${error}`)
+  );
 }

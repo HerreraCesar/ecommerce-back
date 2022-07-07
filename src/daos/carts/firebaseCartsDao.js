@@ -2,7 +2,7 @@ import FirebaseContainer from "../../containers/firebaseContainer.js";
 
 class FirebaseCartsDao extends FirebaseContainer {
   constructor() {
-    super("orders");
+    super("carts");
   }
 }
 

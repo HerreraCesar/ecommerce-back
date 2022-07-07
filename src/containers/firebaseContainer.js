@@ -20,7 +20,7 @@ class FirebaseContainer {
       docs.map((doc) => response.push(doc.data()));
       return response;
     } catch (error) {
-      errorLogger.error(error)
+      errorLogger.error(error);
     }
   }
 
@@ -33,7 +33,7 @@ class FirebaseContainer {
       }
       return content[index];
     } catch (error) {
-      errorLogger.error(error)
+      errorLogger.error(error);
     }
   }
 
@@ -46,7 +46,7 @@ class FirebaseContainer {
         JSON.stringify(data)
       );
     } catch (error) {
-      errorLogger.error(error)
+      errorLogger.error(error);
     }
   }
 
@@ -65,7 +65,7 @@ class FirebaseContainer {
         JSON.stringify(newData)
       );
     } catch (error) {
-      errorLogger.error(error)
+      errorLogger.error(error);
     }
   }
 
@@ -79,7 +79,7 @@ class FirebaseContainer {
       await this.collection.doc(`${id}`).delete();
       return `El registro con id ${id} ha sido eliminado correctamente`;
     } catch (error) {
-      errorLogger.error(error)
+      errorLogger.error(error);
     }
   }
 }

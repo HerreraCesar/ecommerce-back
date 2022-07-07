@@ -12,10 +12,10 @@ routerProducts.get("/:id?", isAuth, async (req, res) => {
   if (req.params.id) {
     let id = req.params.id;
     let data = await products.getById(id);
-    res.render("details", {data})
+    res.render("details", { data });
   } else {
     let data = await products.getAll();
-    res.render("products", {data, user: req.user})
+    res.render("products", { data, user: req.user });
   }
 });
 

@@ -2,8 +2,7 @@ import "dotenv/config";
 
 export default {
   mongodb: {
-    connectionString:
-      "mongodb+srv://cesar:364788mg@cluster0.zbava.mongodb.net/ecommerce?retryWrites=true&w=majority",
+    connectionString: process.env.MONGO_CONNECTION_STRING,
   },
   firebase: {
     type: "service_account",
@@ -21,5 +20,9 @@ export default {
       "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-1nguz%40ecommerce-e1ce7.iam.gserviceaccount.com",
   },
   PORT: process.env.PORT || 8080,
-  MODE: process.env.MODE || 'fork'
+  MODE: process.env.MODE || "fork",
+  TWILIO_ACCOUNT_SID: process.env.TWILIO_ACCOUNT_SID,
+  TWILIO_AUTH_TOKEN: process.env.TWILIO_AUTH_TOKEN,
+  EMAIL: process.env.EMAIL,
+  EMAIL_PASSWORD: process.env.EMAIL_PASSWORD,
 };

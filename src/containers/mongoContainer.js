@@ -14,7 +14,7 @@ class MongoContainer {
     try {
       return await this.collection.find().lean();
     } catch (error) {
-      errorLogger.error(error)
+      errorLogger.error(error);
     }
   }
 
@@ -23,12 +23,12 @@ class MongoContainer {
       const content = await this.getAll();
       const index = content.findIndex((register) => register.id === id);
       if (index === -1) {
-        requestLogger.info(`No se ha encontrado el registro con id ${id}`)
+        requestLogger.info(`No se ha encontrado el registro con id ${id}`);
         return false;
       }
       return content[index];
     } catch (error) {
-      errorLogger.error(error)
+      errorLogger.error(error);
     }
   }
 
@@ -40,7 +40,7 @@ class MongoContainer {
         JSON.stringify(data)
       );
     } catch (error) {
-      errorLogger.error(error)
+      errorLogger.error(error);
     }
   }
 
@@ -59,7 +59,7 @@ class MongoContainer {
         JSON.stringify(newData)
       );
     } catch (error) {
-      errorLogger.error(error)
+      errorLogger.error(error);
     }
   }
 
@@ -73,7 +73,7 @@ class MongoContainer {
       await this.collection.deleteOne({ id: id });
       return `El registro con id ${id} ha sido eliminado correctamente`;
     } catch (error) {
-      errorLogger.error(error)
+      errorLogger.error(error);
     }
   }
 }

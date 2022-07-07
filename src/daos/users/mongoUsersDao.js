@@ -11,7 +11,7 @@ class MongoUsersDao extends MongoContainer {
       phone: { type: String, required: true },
       photo: { type: String, required: true },
       timestamp: { type: Number, required: true },
-      cart: { type: String, required: true }
+      cart: { type: String, required: true },
     });
   }
 }
