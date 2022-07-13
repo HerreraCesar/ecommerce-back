@@ -4,9 +4,9 @@ import {
   usersDao as users,
 } from "../src/daos/index.js";
 import { client, transporter } from "../server.js";
+import { errorLogger, requestLogger } from "../controllers/loggers.js";
 
 import { Router } from "express";
-import { requestLogger } from "../controllers/loggers.js";
 import uniqid from "uniqid";
 
 const routerOrders = Router();
