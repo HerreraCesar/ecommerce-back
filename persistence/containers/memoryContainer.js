@@ -13,7 +13,7 @@ class MemoryContainer {
     if (index === -1) {
       return `No se ha encontrado el registro con id ${id}`;
     }
-    return register[index];
+    return content[index];
   }
 
   add(data) {

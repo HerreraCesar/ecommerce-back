@@ -1,24 +1,24 @@
-import admin from "firebase-admin";
-import config from "../config.js";
-import { errorLogger } from "../../controllers/loggers.js";
+import * as fs from "fs";
 
-admin.initializeApp({
-  credential: admin.credential.cert(config.firebase),
-});
+import {errorLogger, requestLogger} from '../../scripts/loggers.js'
 
-const db = admin.firestore();
-
-class FirebaseContainer {
-  constructor(collection) {
-    this.collection = db.collection(collection);
+class FilesContainer {
+  constructor(filename) {
+    this.filename = filename;
   }
+
+  async write(data) {
+    try {
+      await fs.promises.writeFile(this.filename, data);
+      requestLogger.info("Escrito correctamente");
+    } catch (error) {
+      errorLogger.error(error);
+    }
+  }
+
   async getAll() {
     try {
-      let response = [];
-      const querySnapshot = await this.collection.get();
-      const docs = querySnapshot.docs;
-      docs.map((doc) => response.push(doc.data()));
-      return response;
+      return JSON.parse(await fs.promises.readFile(this.filename, "utf-8"));
     } catch (error) {
       errorLogger.error(error);
     }
@@ -31,7 +31,7 @@ class FirebaseContainer {
       if (index === -1) {
         return `No se ha encontrado el registro con id ${id}`;
       }
-      return content[index];
+      return register[index];
     } catch (error) {
       errorLogger.error(error);
     }
@@ -39,8 +39,9 @@ class FirebaseContainer {
 
   async add(data) {
     try {
-      await this.collection.doc(`${data.id}`).create(data);
-
+      const content = await this.getAll();
+      content.push(data);
+      await this.write(JSON.stringify(content));
       return (
         "Se ha agregado un registro correctamente con los siguientes datos: " +
         JSON.stringify(data)
@@ -59,7 +60,8 @@ class FirebaseContainer {
       }
       const timestamp = content[index].timestamp;
       const registry = { ...newData, id, timestamp };
-      await this.collection.doc(`${id}`).update(registry);
+      content.splice(index, 1, registry);
+      await this.write(JSON.stringify(content));
       return (
         `El registro con id ${id} ha sido actualizado correctamente con los siguientes datos: ` +
         JSON.stringify(newData)
@@ -76,7 +78,8 @@ class FirebaseContainer {
       if (index === -1) {
         return `No se ha encontrado el registro con id ${id}`;
       }
-      await this.collection.doc(`${id}`).delete();
+      content.splice(index, 1);
+      await this.write(JSON.stringify(content));
       return `El registro con id ${id} ha sido eliminado correctamente`;
     } catch (error) {
       errorLogger.error(error);
@@ -84,4 +87,4 @@ class FirebaseContainer {
   }
 }
 
-export default FirebaseContainer;
+export default FilesContainer;
