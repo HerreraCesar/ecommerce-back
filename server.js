@@ -28,7 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 passport.use("login", loginStrategy);
 passport.use("registration", registationStrategy);
-passport.use(tokenStrategy)
+passport.use(tokenStrategy);
 
 // ------------- VISTAS ------------- //
 const __filename = fileURLToPath(import.meta.url);

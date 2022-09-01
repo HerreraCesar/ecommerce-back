@@ -7,15 +7,7 @@ import { userAsDto } from "../persistence/dtos/userDTO.js";
 
 const getInfo = async (req, res) => {
   requestLogger.info(`ruta ${req.url} metodo ${req.method} autorizada`);
-  res.json({
-    "Nombre de la plataforma:": config.variables.platform,
-    "Versión de Node.js:": config.variables.node,
-    "Memoria total reservada:": config.variables.memory,
-    "Path de ejecución:": config.variables.path,
-    "Process id:": config.variables.id,
-    "Carpeta del proyecto:": config.variables.folder,
-    "Procesadores": config.variables.processors
-  });
+  res.render("home", { data: config });
 };
 
 const postLogin = async (req, res, next) => {
@@ -31,7 +23,7 @@ const postLogin = async (req, res, next) => {
         const token = jwt.sign({ user: data }, "coderhouse", {
           expiresIn: "24h",
         });
-        return res.json({...userAsDto(user), token });
+        return res.json({ ...userAsDto(user), token });
       });
     } catch (e) {
       return next(e);
@@ -52,7 +44,7 @@ const postRegistration = async (req, res, next) => {
         const token = jwt.sign({ user: data }, "coderhouse", {
           expiresIn: "24h",
         });
-        return res.json({...userAsDto(user), token });
+        return res.json({ ...userAsDto(user), token });
       });
     } catch (e) {
       return next(e);
@@ -60,8 +52,4 @@ const postRegistration = async (req, res, next) => {
   })(req, res, next);
 };
 
-export {
-  getInfo,
-  postRegistration,
-  postLogin
-};
+export { getInfo, postRegistration, postLogin };

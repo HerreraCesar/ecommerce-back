@@ -15,8 +15,12 @@ switch (config.PERSISTENCE) {
     const { default: FilesProductsDao } = await import(
       "./daos/products/filesProductsDao.js"
     );
-    const { default: FilesCartsDao } = await import("./daos/carts/filesCartsDao.js");
-    const { default: FilesUsersDao } = await import("./daos/users/filesUsersDao.js");
+    const { default: FilesCartsDao } = await import(
+      "./daos/carts/filesCartsDao.js"
+    );
+    const { default: FilesUsersDao } = await import(
+      "./daos/users/filesUsersDao.js"
+    );
     const { default: FilesOrdersDao } = await import(
       "./daos/orders/filesOrdersDao.js"
     );
@@ -30,8 +34,12 @@ switch (config.PERSISTENCE) {
     const { default: MongoProductsDao } = await import(
       "./daos/products/mongoProductsDao.js"
     );
-    const { default: MongoCartsDao } = await import("./daos/carts/mongoCartsDao.js");
-    const { default: MongoUsersDao } = await import("./daos/users/mongoUsersDao.js");
+    const { default: MongoCartsDao } = await import(
+      "./daos/carts/mongoCartsDao.js"
+    );
+    const { default: MongoUsersDao } = await import(
+      "./daos/users/mongoUsersDao.js"
+    );
     const { default: MongoOrdersDao } = await import(
       "./daos/orders/mongoOrdersDao.js"
     );

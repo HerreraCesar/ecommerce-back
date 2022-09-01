@@ -24,11 +24,10 @@ const addProductToCart = async (req, res) => {
     (registry) => registry.id === newProduct.id
   );
   if (index !== -1) {
-    const error = "El producto ya se encuentra en el carrito";
-    res.render("error", { error });
+    res.json({ message: "El producto ya se encuentra en el carrito" });
   } else {
     cartProducts.push(newProduct);
-    let data = await carts.updateById(cartId, { products: cartProducts });
+    await carts.updateById(cartId, { products: cartProducts });
     res.redirect(`/carts/${cartId}`);
   }
 };
@@ -40,11 +39,11 @@ const deleteProductFromCart = async (req, res) => {
   let cartProducts = cartContent.products;
   const index = cartProducts.findIndex((registry) => registry.id === productId);
   if (index === -1) {
-    res.send("El producto no se encuentra en el carrito");
+    res.json({ message: "El producto no se encuentra en el carrito" });
   } else {
     cartProducts.splice(index, 1);
-    let data = await carts.updateById(cartId, { products: cartProducts });
-    res.send(data);
+    await carts.updateById(cartId, { products: cartProducts });
+    res.redirect(`/carts/${cartId}`);
   }
 };
 

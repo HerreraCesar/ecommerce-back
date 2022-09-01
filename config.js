@@ -1,6 +1,4 @@
-//import "dotenv/config";
-
-import * as dotenv from 'dotenv'
+import * as dotenv from "dotenv";
 
 import { hideBin } from "yargs/helpers";
 import os from "os";
@@ -11,12 +9,12 @@ const { enviroment } = yargs(hideBin(process.argv))
     e: "enviroment",
   })
   .default({
-    enviroment: 'development'
+    enviroment: "development",
   }).argv;
 
 dotenv.config({
-  path: `.env.${enviroment}`
-})
+  path: `.env.${enviroment}`,
+});
 
 export default {
   mongodb: {

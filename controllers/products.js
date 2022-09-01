@@ -4,14 +4,24 @@ import uniqid from "uniqid";
 
 const getProducts = async (req, res, next) => {
   try {
-    if (req.params.id) {
-      let productId = req.params.id;
+    if (req.query.id) {
+      let productId = req.query.id;
       let data = await products.getById(productId);
       res.json(productAsDto(data));
     } else {
       let data = await products.getAll();
       res.json(productAsDto(data));
     }
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getProductsByCategory = async (req, res, next) => {
+  try {
+    let category = req.params.category;
+    let data = await products.getByCategory(category);
+    res.json(productAsDto(data));
   } catch (error) {
     next(error);
   }
@@ -60,4 +70,10 @@ const deleteProduct = async (req, res, next) => {
   }
 };
 
-export { getProducts, addProduct, updateProduct, deleteProduct };
+export {
+  getProducts,
+  addProduct,
+  updateProduct,
+  deleteProduct,
+  getProductsByCategory,
+};

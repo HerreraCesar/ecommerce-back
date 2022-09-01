@@ -5,11 +5,24 @@ import {
 } from "../controllers/carts.js";
 
 import { Router } from "express";
+import passport from "passport";
 
 const cartsRouter = Router();
 
-cartsRouter.get("/:id", getCart);
-cartsRouter.post("/:cart_id/:product_id", addProductToCart);
-cartsRouter.delete("/:cart_id/:product_id", deleteProductFromCart);
+cartsRouter.get(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  getCart
+);
+cartsRouter.post(
+  "/:cart_id/:product_id",
+  passport.authenticate("jwt", { session: false }),
+  addProductToCart
+);
+cartsRouter.delete(
+  "/:cart_id/:product_id",
+  passport.authenticate("jwt", { session: false }),
+  deleteProductFromCart
+);
 
 export default cartsRouter;

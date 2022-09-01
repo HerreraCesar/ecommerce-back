@@ -1,6 +1,6 @@
 import * as fs from "fs";
 
-import {errorLogger, requestLogger} from '../../scripts/loggers.js'
+import { errorLogger, requestLogger } from "../../scripts/loggers.js";
 
 class FilesContainer {
   constructor(filename) {

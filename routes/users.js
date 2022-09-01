@@ -5,7 +5,7 @@ import passport from "passport";
 
 const usersRouter = Router();
 
-usersRouter.get("/info", getInfo);
+usersRouter.get("/", getInfo);
 usersRouter.post("/login", postLogin);
 usersRouter.post(
   "/registration",

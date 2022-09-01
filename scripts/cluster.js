@@ -12,7 +12,9 @@ export const forkServer = () => {
       `Servidor escuchando en el puerto ${server.address().port}`
     );
   });
-  server.on("error", (error) => errorLogger.error(`Error en el servidor ${error}`));
+  server.on("error", (error) =>
+    errorLogger.error(`Error en el servidor ${error}`)
+  );
   requestLogger.info(`Worker ${process.pid} started`);
 };
 
