@@ -7,6 +7,7 @@ let productsDao;
 let cartsDao;
 let usersDao;
 let ordersDao;
+let messagesDao;
 
 requestLogger.info(`db seleccionada: ${process.env.PERSISTENCE}`);
 
@@ -24,10 +25,14 @@ switch (config.PERSISTENCE) {
     const { default: FilesOrdersDao } = await import(
       "./daos/orders/filesOrdersDao.js"
     );
+    const { default: FilesMessagesDao } = await import(
+      "./daos/messages/filesMessagesDao.js"
+    );
     productsDao = new FilesProductsDao();
     cartsDao = new FilesCartsDao();
     usersDao = new FilesUsersDao();
     ordersDao = new FilesOrdersDao();
+    messagesDao = new FilesMessagesDao()
     break;
 
   case "mongo":
@@ -43,10 +48,14 @@ switch (config.PERSISTENCE) {
     const { default: MongoOrdersDao } = await import(
       "./daos/orders/mongoOrdersDao.js"
     );
+    const { default: MongoMessagesDao } = await import(
+      "./daos/messages/mongoMessagesDao.js"
+    );
     productsDao = new MongoProductsDao();
     cartsDao = new MongoCartsDao();
     usersDao = new MongoUsersDao();
     ordersDao = new MongoOrdersDao();
+    messagesDao = new MongoMessagesDao()
     break;
 
   default:
@@ -62,11 +71,15 @@ switch (config.PERSISTENCE) {
     const { default: MemoryOrdersDao } = await import(
       "./daos/orders/memoryOrdersDao.js"
     );
+    const { default: MemoryMessagesDao } = await import(
+      "./daos/messages/memoryMessagesDao.js"
+    );
     productsDao = new MemoryProductsDao();
     cartsDao = new MemoryCartsDao();
     usersDao = new MemoryUsersDao();
     ordersDao = new MemoryOrdersDao();
+    messagesDao = new MemoryMessagesDao()
     break;
 }
 
-export { productsDao, cartsDao, usersDao, ordersDao };
+export { productsDao, cartsDao, usersDao, ordersDao, messagesDao };

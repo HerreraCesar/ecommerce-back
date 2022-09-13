@@ -52,8 +52,9 @@ export const registationStrategy = new localStrategy(
       password: createHash(password),
       email: email,
       phone: req.body.phone,
-      timestamp: new Date().valueOf(),
+      timestamp: Date.now(),
       cart: uniqid(),
+      chat: uniqid()
     };
     const newCart = {
       timestamp: new Date().valueOf(),

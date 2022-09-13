@@ -23,7 +23,8 @@ const postLogin = async (req, res, next) => {
         const token = jwt.sign({ user: data }, "coderhouse", {
           expiresIn: "24h",
         });
-        return res.json({ ...userAsDto(user), token });
+        const timestamp = Date.now()
+        return res.json({ ...userAsDto(user), token, timestamp });
       });
     } catch (e) {
       return next(e);
@@ -44,7 +45,8 @@ const postRegistration = async (req, res, next) => {
         const token = jwt.sign({ user: data }, "coderhouse", {
           expiresIn: "24h",
         });
-        return res.json({ ...userAsDto(user), token });
+        const timestamp = Date.now()
+        return res.json({ ...userAsDto(user), token, timestamp });
       });
     } catch (e) {
       return next(e);

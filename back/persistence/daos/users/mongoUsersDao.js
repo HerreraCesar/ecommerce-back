@@ -9,6 +9,7 @@ class MongoUsersDao extends MongoContainer {
       phone: { type: String, required: true },
       timestamp: { type: Number, required: true },
       cart: { type: String, required: true },
+      chat: { type: String, required: true },
     });
   }
 }

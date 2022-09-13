@@ -1,13 +1,13 @@
 import { errorLogger, requestLogger } from "./loggers.js";
 
-import { app } from "../server.js";
+import { http } from "../server.js";
 import cluster from "cluster";
 import config from "../config.js";
 import { cpus } from "os";
 import process from "process";
 
 export const forkServer = () => {
-  const server = app.listen(config.PORT, () => {
+  const server = http.listen(config.PORT, () => {
     requestLogger.info(
       `Servidor escuchando en el puerto ${server.address().port}`
     );

@@ -3,7 +3,7 @@ import { errorLogger, requestLogger } from "../../scripts/loggers.js";
 import config from "../../config.js";
 import mongoose from "mongoose";
 
-const mon = mongoose.connect(config.mongodb.connectionString);
+mongoose.connect(config.mongodb.connectionString);
 
 class MongoContainer {
   constructor(collection, schema) {

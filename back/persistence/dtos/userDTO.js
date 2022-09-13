@@ -1,8 +1,9 @@
 export default class userDTO {
-  constructor({ email, password, username, phone, cart, timestamp, _id, __v }) {
+  constructor({ email, password, username, phone, cart, chat, timestamp, _id, __v }) {
     this.email = email;
     this.username = username;
     this.cart = cart;
+    this.chat = chat;
   }
 }
 
