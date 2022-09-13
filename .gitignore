@@ -1,4 +1,4 @@
-/back/node_modules
-/front/node_modules
-/back/.env.development
-/back/.env.production
+/node_modules
+/node_modules
+/.env.development
+/.env.production
