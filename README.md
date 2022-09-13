@@ -1,5 +1,5 @@
 Backend de ecommerce realizado durante el desarrollo del curso de Programación Backend de [Coderhouse](https://www.coderhouse.com/).
-Para ver el frontend haga [clic aquí](https://github.com/HerreraCesar/ecommerce-front)
+Para ver el repositorio del frontend haga [clic aquí](https://github.com/HerreraCesar/ecommerce-front)
 
 ## Índice <a name="indice"></a>
 
@@ -14,14 +14,15 @@ Para ver el frontend haga [clic aquí](https://github.com/HerreraCesar/ecommerce
 
 * **[GitHub](https://github.com/HerreraCesar/)**
 * **[LinkedIn](https://www.linkedin.com/in/herrera-cesar/)**
+* **[Website](https://herreracesar.site/)**
 
 ## Demo Backend <a name="2"></a>
 
-Conocé el backend de la app en funcionamiento haciendo click [aquí](https://eccomerce-mitienda.herokuapp.com/).
+Conocé el backend de la app en funcionamiento haciendo [clic aquí](https://eccomerce-mitienda.herokuapp.com/).
 
 ## Demo Frontend <a name="3"></a>
 
-Conocé el frontend de la app en funcionamiento haciendo click [aquí](https://eccomerce-mitienda.netlify.app/).
+Conocé el frontend de la app en funcionamiento haciendo [clic aquí](https://eccomerce-mitienda.netlify.app/).
 
 ## Dependencias: <a name="4"></a>
 
@@ -39,7 +40,7 @@ Conocé el frontend de la app en funcionamiento haciendo click [aquí](https://e
 
 Deben ser cargadas en un archivo denominado `.env.production` o `.env.development`. El entorno se define mediante argumentos de linea de comando. Las variables a definir son:
 
-`PERSISTENCE=` Ubicación de la base de datos. Opciones válidas: json, memory o mongo (requiere `MONGO_CONNECTION_STRING=`). (OBLIGATORIO)
+`PERSISTENCE=` Ubicación de la base de datos. Opciones válidas: json, memory o mongo (requiere MONGO_CONNECTION_STRING). (OBLIGATORIO)
 
 `MONGO_CONNECTION_STRING=` String de conexión con la base de datos. (depende de la persistencia, puede ser local o remoto)
 

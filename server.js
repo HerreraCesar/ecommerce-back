@@ -49,7 +49,7 @@ const __dirname = path.dirname(__filename);
 app.engine("hbs", engine());
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "views"));
-app.use(express.static(__dirname + "/public/static"));
+app.use(express.static(__dirname + "/public"));
 
 // ------------- RUTAS ------------- //
 app.use("/", usersRouter);
