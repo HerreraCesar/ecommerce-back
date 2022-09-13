@@ -39,11 +39,16 @@ Conocé el frontend de la app en funcionamiento haciendo click [aquí](https://e
 
 Deben ser cargadas en un archivo denominado `.env.production` o `.env.development`. El entorno se define mediante argumentos de linea de comando. Las variables a definir son:
 
-`PERSISTENCE=`  Ubicación de la base de datos. Opciones válidas: json, memory o mongo (requiere `MONGO_CONNECTION_STRING=`). (OBLIGATORIO)
+`PERSISTENCE=` Ubicación de la base de datos. Opciones válidas: json, memory o mongo (requiere `MONGO_CONNECTION_STRING=`). (OBLIGATORIO)
+
 `MONGO_CONNECTION_STRING=` String de conexión con la base de datos. (depende de la persistencia, puede ser local o remoto)
+
 `PORT=` Define el puerto en el que va a correr la aplicación. (OPCIONAL)
+
 `MODE=` Define el modo de ejecución del servidor. Opciones válidas:  fork y cluster. (OPCIONAL)
+
 `EMAIL=` Email utilizado para el envío de correos desde la aplicación. (OBLIGATORIO)
+
 `EMAIL_PASSWORD=` Contraseña del email. (OBLIGATORIO)
 
 ## ¿Como usar la aplicación de forma local? <a name="6"></a>
