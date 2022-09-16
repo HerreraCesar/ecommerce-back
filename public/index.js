@@ -37,7 +37,7 @@ switch (location.pathname) {
       e.preventDefault();
       const message = {
         author: document.getElementById("email").value,
-        timestamp: new Date().valueOf(),
+        timestamp: Date.now(),
         text: document.getElementById("text").value,
         chat: "1",
       };

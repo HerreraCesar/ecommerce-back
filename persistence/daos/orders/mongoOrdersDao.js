@@ -8,7 +8,7 @@ class MongoOrdersDao extends MongoContainer {
       email: { type: String, required: true },
       phone: { type: String, required: true },
       cart: { type: Array, required: true },
-      timestamp: { type: String, required: true },
+      timestamp: { type: Number, required: true },
     });
   }
 }

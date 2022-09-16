@@ -43,11 +43,11 @@ const addOrder = async (req, res) => {
     email: user.email,
     phone: user.phone,
     cart: cartAsDto(data),
-    timestamp: new Date().valueOf(),
+    timestamp: Date.now(),
   };
   await orders.add(newOrder);
   const newCart = {
-    timestamp: new Date().valueOf(),
+    timestamp: Date.now(),
     id: uniqid(),
     products: [],
     total: 0,

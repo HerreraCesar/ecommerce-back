@@ -29,7 +29,7 @@ const getProductsByCategory = async (req, res, next) => {
 
 const addProduct = async (req, res, next) => {
   try {
-    let timestamp = new Date().valueOf();
+    let timestamp = Date.now()
     let id = uniqid();
     let newProduct = { ...req.body, id, timestamp };
     let data = await products.add(newProduct);

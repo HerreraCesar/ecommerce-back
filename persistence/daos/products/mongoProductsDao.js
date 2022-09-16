@@ -8,7 +8,7 @@ class MongoProductsDao extends MongoContainer {
       thumbnail: { type: String, required: true },
       category: { type: String, required: true },
       id: { type: String, required: true },
-      timestamp: { type: String, required: true },
+      timestamp: { type: Number, required: true },
     });
   }
 }

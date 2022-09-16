@@ -6,7 +6,7 @@ class MongoMessagesDao extends MongoContainer {
       chat: { type: String, required: true },
       author: {type: String, required: true},
       text: { type: String, required: true },
-      timestamp: { type: String, required: true },
+      timestamp: { type: Number, required: true },
     });
   }
 }

@@ -57,7 +57,7 @@ export const registationStrategy = new localStrategy(
       chat: uniqid(),
     };
     const newCart = {
-      timestamp: new Date().valueOf(),
+      timestamp: Date.now(),
       id: newUser.cart,
       products: [],
       total: 0,
