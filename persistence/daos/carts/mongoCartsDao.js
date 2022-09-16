@@ -6,6 +6,7 @@ class MongoCartsDao extends MongoContainer {
       id: { type: String, required: true },
       timestamp: { type: String, required: true },
       products: { type: Array, required: true },
+      total: { type: Number, required: true },
     });
   }
 }

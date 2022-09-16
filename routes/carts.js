@@ -1,5 +1,6 @@
 import {
   addProductToCart,
+  clearCart,
   deleteProductFromCart,
   getCart,
 } from "../controllers/carts.js";
@@ -23,6 +24,11 @@ cartsRouter.delete(
   "/:cart_id/:product_id",
   passport.authenticate("jwt", { session: false }),
   deleteProductFromCart
+);
+cartsRouter.delete(
+  "/:cart_id",
+  passport.authenticate("jwt", { session: false }),
+  clearCart
 );
 
 export default cartsRouter;

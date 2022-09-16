@@ -6,13 +6,27 @@ import {
 import { errorLogger, requestLogger } from "../scripts/loggers.js";
 
 import { cartAsDto } from "../persistence/dtos/cartDTO.js";
+import { orderAsDto } from "../persistence/dtos/orderDTO.js";
 import { transporter } from "../scripts/nodemailer.js";
 import uniqid from "uniqid";
+import { userAsDto } from "../persistence/dtos/userDTO.js";
 
-const getOrders = async (req, res) => {
+const getOrders = async (req, res, next) => {
   try {
-    let data = await orders.getAll();
-    res.json(data);
+    if (req.query.email) {
+      const userOrders = [];
+      let email = req.query.email;
+      let data = await orders.getAll();
+      data.forEach((order) => {
+        if (order.email === email) {
+          userOrders.push(orderAsDto(order));
+        }
+      });
+      res.json(userOrders);
+    } else {
+      let data = await orders.getAll();
+      res.json(orderAsDto(data));
+    }
   } catch (error) {
     next(error);
   }
@@ -36,6 +50,7 @@ const addOrder = async (req, res) => {
     timestamp: new Date().valueOf(),
     id: uniqid(),
     products: [],
+    total: 0,
   };
   await carts.add(newCart);
   const newUser = {
@@ -44,6 +59,7 @@ const addOrder = async (req, res) => {
     password: user.password,
     phone: user.phone,
     cart: newCart.id,
+    chat: user.chat,
   };
   await users.updateByEmail(user.email, newUser);
   let productsDetails = [];
@@ -77,7 +93,7 @@ const addOrder = async (req, res) => {
 
   res.json({
     message: "Orden generada correctamente",
-    data: newOrder,
+    data: { order: orderAsDto(newOrder), user: userAsDto(newUser) },
   });
 };
 

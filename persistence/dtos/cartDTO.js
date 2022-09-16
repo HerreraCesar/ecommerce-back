@@ -2,9 +2,10 @@ import { productAsDto } from "./productDTO.js";
 
 productAsDto;
 export default class cartDTO {
-  constructor({ id, products, timestamp, _id, __v }) {
+  constructor({ id, products, total, timestamp, _id, __v }) {
     this.id = id;
     this.products = productAsDto(products);
+    this.total = total;
   }
 }
 

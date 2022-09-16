@@ -54,12 +54,13 @@ export const registationStrategy = new localStrategy(
       phone: req.body.phone,
       timestamp: Date.now(),
       cart: uniqid(),
-      chat: uniqid()
+      chat: uniqid(),
     };
     const newCart = {
       timestamp: new Date().valueOf(),
       id: newUser.cart,
       products: [],
+      total: 0,
     };
     const mailOptions = {
       from: "Servidor Node.js",

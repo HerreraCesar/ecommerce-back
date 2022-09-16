@@ -17,7 +17,9 @@ function renderMessages(messages) {
       return `
         <div>
           <strong>${e.author}</strong>
-          <span>[${new Date(JSON.parse(e.timestamp)).toLocaleString("es-AR")}]:</span>
+          <span>[${new Date(JSON.parse(e.timestamp)).toLocaleString(
+            "es-AR"
+          )}]:</span>
           <em>${e.text}</em> 
         </div>`;
     })
@@ -33,19 +35,18 @@ switch (location.pathname) {
 
     messagesForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      console.log(e);
       const message = {
         author: document.getElementById("email").value,
         timestamp: new Date().valueOf(),
         text: document.getElementById("text").value,
-        chat: '1'
+        chat: "1",
       };
       socket.emit("addMessage", message);
       document.getElementById("text").value = "";
       document.getElementById("text").focus();
     });
     break;
-    
+
   default:
     break;
 }

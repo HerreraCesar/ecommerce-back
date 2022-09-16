@@ -32,7 +32,7 @@ switch (config.PERSISTENCE) {
     cartsDao = new FilesCartsDao();
     usersDao = new FilesUsersDao();
     ordersDao = new FilesOrdersDao();
-    messagesDao = new FilesMessagesDao()
+    messagesDao = new FilesMessagesDao();
     break;
 
   case "mongo":
@@ -55,7 +55,7 @@ switch (config.PERSISTENCE) {
     cartsDao = new MongoCartsDao();
     usersDao = new MongoUsersDao();
     ordersDao = new MongoOrdersDao();
-    messagesDao = new MongoMessagesDao()
+    messagesDao = new MongoMessagesDao();
     break;
 
   default:
@@ -78,7 +78,7 @@ switch (config.PERSISTENCE) {
     cartsDao = new MemoryCartsDao();
     usersDao = new MemoryUsersDao();
     ordersDao = new MemoryOrdersDao();
-    messagesDao = new MemoryMessagesDao()
+    messagesDao = new MemoryMessagesDao();
     break;
 }
 
