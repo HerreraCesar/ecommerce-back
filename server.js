@@ -20,7 +20,6 @@ import ordersRouter from "./routes/orders.js";
 import passport from "passport";
 import path from "path";
 import productsRouter from "./routes/products.js";
-import supportRouter from "./routes/support.js";
 import usersRouter from "./routes/users.js";
 import { websocket } from "./scripts/websocket.js";
 
@@ -30,7 +29,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // ------------- CORS ------------- //
-app.use(cors())
+app.use(cors());
 
 // ------------- PASSPORT ------------- //
 app.use(passport.initialize());
@@ -40,7 +39,12 @@ passport.use(tokenStrategy);
 
 // ------------- WEBSOCKETS ------------- //
 export const http = createServer(app);
-export const io = new Server(http);
+export const io = new Server(http, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
+});
 io.on("connection", websocket);
 
 // ------------- VISTAS ------------- //
@@ -56,7 +60,6 @@ app.use("/", usersRouter);
 app.use("/products", productsRouter);
 app.use("/carts", cartsRouter);
 app.use("/orders", ordersRouter);
-app.use("/support", supportRouter)
 app.get("*", errorHandler);
 app.use(errorHandler);
 
