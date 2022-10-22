@@ -20,11 +20,11 @@ Para ver el repositorio del frontend haga [clic aquí](https://github.com/Herrer
 
 ## Demo Backend <a name="2"></a>
 
-Conocé el backend de la app en funcionamiento haciendo [clic aquí](https://eccomerce-mitienda.herokuapp.com/).
+Conocé el backend de la app en funcionamiento haciendo [clic aquí](https://ecommerce-mitienda.herokuapp.com/).
 
 ## Demo Frontend <a name="3"></a>
 
-Conocé el frontend de la app en funcionamiento haciendo [clic aquí](https://eccomerce-mitienda.netlify.app/).
+Conocé el frontend de la app en funcionamiento haciendo [clic aquí](https://ecommerce-mitienda.netlify.app/).
 
 ## Dependencias: <a name="4"></a>
 
